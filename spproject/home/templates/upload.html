@@ -1,0 +1,58 @@
+{% extends 'base_analysis.html' %}
+{% load static %}
+
+{% block head %}Upload{% endblock %}
+{% block title %}<h1>Upload & Predict</h1>{% endblock %}
+
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="table table-hover" id='tbl_hist'>
+    <tr>
+        <td>
+            <div class="mb-3">
+                <label class="form-label" for="document">Document</label>
+                <div class="input-group">
+                    <input type="file"  name="document" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload"  placeholder="Choose the Document to upload" required>{{ uploadFile.document }}</input>
+                </div>
+                <p style="color:red; font-size:1em">Available file type: csv</p>
+            </div> 
+        <td>
+        <td>
+            <label class="form-label">Select models to vote for prediction:</label>
+            <div class="form-check form-switch">
+                <input class="form-check-input center" type="checkbox" role="switch" name="xgselect" value="XGBoost">
+                <label class="form-check-label" for="xgselect" value="XGBoost">XGBoost</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" name="svcselect" value="SVC">
+                <label class="form-check-label" for="svcselect" value="SVC">SVC</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" name="rfselect" value="RandomForest">
+                <label class="form-check-label" for="rfselect" value="RandomForest">RandomForest</label>
+            </div>
+            <a class="btn btn-primary" href="/home/models">Check model accuracy</a>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>
+        <button type="submit" class="btn btn-outline-primary" id="inputGroupFileAddon04">Upload</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="location.href='{% url 'upload' %}'">Remove</button>
+        </td>
+    </tr>
+    </table>
+</form>
+
+
+{% endblock %}
+<style>
+    .center {
+      margin: auto;
+      width: 60%;
+      padding: 10px;
+    }
+    </style>
